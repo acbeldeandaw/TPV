@@ -80,7 +80,6 @@
                 </c:forEach>
             </tbody>
         </table>
-        <br>
         <button class="button" type="button" onclick="location.href='insertar.jsp'">Añadir Producto</button>
         <button class="button" type="button" onclick="location.href='index.html'">Inicio</button>
         <script type="text/javascript">
