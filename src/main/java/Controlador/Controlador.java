@@ -6,8 +6,6 @@
 package Controlador;
 
 import Modelo.Crud;
-import Modelo.Crud;
-import Modelo.Productos;
 import Modelo.Productos;
 import java.io.IOException;
 import java.util.List;
