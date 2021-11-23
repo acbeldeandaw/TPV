@@ -47,19 +47,18 @@
         </style>
     </head>
     <body>
-        <h1>EDICIÓN DE PRODUCTO</h1>
+        <h1>INSERCIÓN DE PRODUCTO</h1>
         <form action="Controlador" method="POST">
-            <input type="number" id="id" name="id" value="${prod.id}" style="display:none">
             <label for="nombre">Nombre</label><br>
-            <input type="text" id="nombre" name="nombre" value="${prod.nombre}"><br>
+            <input type="text" id="nombre" name="nombre"><br>
             <label for="imagen">Imagen</label><br>
-            <input type="text" id="imagen" name="imagen" value="${prod.imagen}"><br>
+            <input type="text" id="imagen" name="imagen"><br>
             <label for="categoria">Categoria</label><br>
-            <input type="text" id="categoria" name="categoria" value="${prod.categoria}"><br>
+            <input type="text" id="categoria" name="categoria"><br>
             <label for="precio">Precio</label><br>
-            <input type="number" id="precio" name="precio" step="0.01" min="0" value="${prod.precio}"><br>
+            <input type="number" id="precio" name="precio" step="0.01" min="0"><br>
             <br>
-            <button class="button" type="submit" name="action" value="actualizarDatos">Actualizar</button><br>
+            <button class="button" type="submit" name="action" value="insertarDatos">Añadir</button><br>
             <button class="button" type="button" onclick="location.href='Controlador?action=mostrar'">Listado de Productos</button><br>
             <button class="button" type="button" onclick="location.href='index.html'">Inicio</button>
         </form>

@@ -23,6 +23,18 @@
             body {
                 text-align: center;
             }
+            .fake-a {
+                border: 0;
+                background-color: rgb(0,0,0,0);
+            }
+            .fake-a:hover {
+                cursor: pointer;
+                color: blue;
+            }
+            .fake-a:focus {
+                outline: none;
+                box-shadow: none;
+            }
             .button {
                 width: 250px;
                 background-color: lightgrey;
@@ -36,9 +48,6 @@
                 margin: 3px 0;
                 transition-duration: 0.4s;
                 cursor: pointer;
-            }
-            .button-a {
-                width: 230px;
             }
             .button:hover {
                 background-color: purple;
@@ -62,29 +71,21 @@
                     <tr>
                         <td>${p.nombre}</td>
                         <td>${p.precio} €</td>
-                        <td><a href="Controlador?action=borrar&id=${p.id}" onclick="confirmAction(this, '¿Estás seguro?', performDelete); return false;">Borrar</a></td>
-                        <td><a href="Controlador?action=actualizar&id=${p.id}" onclick="confirmAction(this, '¿Estás seguro?', performDelete); return false;">Actualizar</a></td>
+                        <form action="Controlador" method="POST">
+                            <input type="hidden" name="id" value="${p.id}"> 
+                            <td><button class="fake-a" type="submit" name="action" onclick="return confirm('¿De verdad quiere eliminar el producto?')" value="borrar">Borrar</button></td>
+                            <td><button class="fake-a" type="submit" name="action" value="actualizar">Actualizar</button></td>
+                        </form>
                     </tr>
                 </c:forEach>
             </tbody>
         </table>
         <br>
-        <a href="index.html" class="button button-a">Inicio</a>
+        <button class="button" type="button" onclick="location.href='insertar.jsp'">Añadir Producto</button>
+        <button class="button" type="button" onclick="location.href='index.html'">Inicio</button>
         <script type="text/javascript">
             alertify.set('notifier','position', 'bottom-center');
             ${msg}
-            function performDelete ( a_element ) {
-                location.href = a_element.href;
-            }
-            function confirmAction ( a_element, message, action ) {
-                alertify.confirm(message, function(e) {
-                    if (e) {
-                        if (action) {
-                            action(a_element);
-                        }
-                    }
-                });
-            }
         </script>
     </body>
 </html>

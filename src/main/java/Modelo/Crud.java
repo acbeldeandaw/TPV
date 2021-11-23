@@ -42,16 +42,34 @@ public class Crud {
         return filasAfectadas;  
     }
     
-    public static int updateProducto(int id) {
+    public static int updateProducto(Productos prod) {
         EntityManagerFactory factory = Persistence.createEntityManagerFactory("my_persistence_unit");
         EntityManager manager = factory.createEntityManager();
-        String sql = "UPDATE Productos p SET p.categoria = 'zumos' WHERE p.id = " + id;
+        String sql = "UPDATE Productos p "
+                + "SET p.nombre = '" + prod.getNombre()
+                + "', p.imagen = '" + prod.getImagen()
+                + "', p.categoria = '" + prod.getCategoria()
+                + "', p.precio = '" + prod.getPrecio()
+                + "' WHERE p.id = " + prod.getId();
         Query q = manager.createQuery(sql,Productos.class);
         manager.getTransaction().begin();
         int filasAfectadas = q.executeUpdate();
         manager.getTransaction().commit();
         //manager.close();
         return filasAfectadas;      
+    }
+    
+    public static void insertProducto(Productos prod) {
+        EntityManagerFactory factory = Persistence.createEntityManagerFactory("my_persistence_unit");
+        EntityManager manager = factory.createEntityManager();
+        manager.getTransaction().begin();
+        Productos producto = new Productos();
+        producto.setNombre(prod.getNombre());
+        producto.setImagen(prod.getImagen());
+        producto.setCategoria(prod.getCategoria());
+        producto.setPrecio(prod.getPrecio());
+        manager.merge(producto);
+        manager.getTransaction().commit();
     }
     
 }

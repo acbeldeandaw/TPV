@@ -67,7 +67,14 @@ public class Productos implements Serializable {
     public Productos(Integer id) {
         this.id = id;
     }
-
+    
+    public Productos(String nombre, String imagen, String categoria, float precio) {
+        this.nombre = nombre;
+        this.imagen = imagen;
+        this.categoria = categoria;
+        this.precio = precio;
+    }
+    
     public Productos(Integer id, String nombre, String imagen, String categoria, float precio) {
         this.id = id;
         this.nombre = nombre;

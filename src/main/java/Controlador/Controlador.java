@@ -38,7 +38,7 @@ public class Controlador extends HttpServlet {
     protected void service(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        String action = request.getParameter("action");
+        String action = (request.getParameter("action") != null) ? request.getParameter("action") : "" ;
         
         if (action.compareToIgnoreCase("mostrar") == 0) {
             List<Productos> listaProductos = Crud.getProductos();
@@ -49,9 +49,9 @@ public class Controlador extends HttpServlet {
         } else if (action.compareToIgnoreCase("borrar") == 0) {
             int id = Integer.parseInt(request.getParameter("id"));
             if (Crud.destroyProducto(id) > 0) {
-                request.setAttribute("msg", "alertify.success('Producto " + id + " borrado correctamente');");
+                request.setAttribute("msg", "alertify.success('Producto borrado correctamente');");
             } else {
-                request.setAttribute("msg", "alertify.error('No se ha podido borrar el producto " + id + "');");
+                request.setAttribute("msg", "alertify.error('No se ha podido borrar el producto');");
             }
             List<Productos> listaProductos = Crud.getProductos();
             request.setAttribute("lista", listaProductos);
@@ -67,9 +67,34 @@ public class Controlador extends HttpServlet {
             
         } else if (action.compareToIgnoreCase("actualizarDatos") == 0) {
             int id = Integer.parseInt(request.getParameter("id"));
-            Productos prod = Crud.getProducto(id);
+            String nombre = request.getParameter("nombre");
+            String imagen = request.getParameter("imagen");
+            String categoria = request.getParameter("categoria");
+            Float precio = Float.parseFloat(request.getParameter("precio"));
+            Productos prod = new Productos(id, nombre, imagen, categoria, precio);
             request.setAttribute("prod", prod);
+            if (Crud.updateProducto(prod) > 0) {
+                request.setAttribute("msg", "alertify.success('Producto actualizado correctamente');");
+            } else {
+                request.setAttribute("msg", "alertify.error('No se ha podido actualizar el producto');");
+            }
             RequestDispatcher rd = request.getRequestDispatcher("actualizar.jsp");
+            rd.forward(request, response);
+            
+        } else if (action.compareToIgnoreCase("insertar") == 0) {
+            RequestDispatcher rd = request.getRequestDispatcher("insertar.jsp");
+            rd.forward(request, response);
+            
+        } else if (action.compareToIgnoreCase("insertarDatos") == 0) {
+            String nombre = request.getParameter("nombre");
+            String imagen = request.getParameter("imagen");
+            String categoria = request.getParameter("categoria");
+            Float precio = Float.parseFloat(request.getParameter("precio"));
+            Productos prod = new Productos(nombre, imagen, categoria, precio);
+            Crud.insertProducto(prod);
+            List<Productos> listaProductos = Crud.getProductos();
+            request.setAttribute("lista", listaProductos);
+            RequestDispatcher rd = request.getRequestDispatcher("mostrar.jsp");
             rd.forward(request, response);
             
         } else {
