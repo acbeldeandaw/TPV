@@ -57,6 +57,10 @@
     </head>
     <body>
         <h1>LISTADO DE PRODUCTOS</h1>
+        <form action="Controlador" method="POST">
+            <button class="button" type="submit" name="action" value="insertar">Añadir Producto</button>
+            <button class="button" type="button" onclick="location.href='index.html'">Inicio</button>
+        </form>
         <table class="table">
             <thead class="">
                 <tr>
@@ -80,10 +84,6 @@
                 </c:forEach>
             </tbody>
         </table>
-        <form action="Controlador" method="POST">
-            <button class="button" type="submit" name="action" value="insertar">Añadir Producto</button>
-            <button class="button" type="button" onclick="location.href='index.html'">Inicio</button>
-        </form>
         <script type="text/javascript">
             alertify.set('notifier','position', 'bottom-center');
             ${msg}
