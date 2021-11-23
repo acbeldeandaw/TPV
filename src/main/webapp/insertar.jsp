@@ -59,7 +59,7 @@
             <input type="number" id="precio" name="precio" step="0.01" min="0"><br>
             <br>
             <button class="button" type="submit" name="action" value="insertarDatos">Añadir</button><br>
-            <button class="button" type="button" onclick="location.href='Controlador?action=mostrar'">Listado de Productos</button><br>
+            <button class="button" type="submit" name="action" value="mostrar">Listado de Productos</button><br>
             <button class="button" type="button" onclick="location.href='index.html'">Inicio</button>
         </form>
         <script type="text/javascript">
