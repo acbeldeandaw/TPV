@@ -80,8 +80,10 @@
                 </c:forEach>
             </tbody>
         </table>
-        <button class="button" type="button" onclick="location.href='insertar.jsp'">Añadir Producto</button>
-        <button class="button" type="button" onclick="location.href='index.html'">Inicio</button>
+        <form action="Controlador" method="POST">
+            <button class="button" type="submit" name="action" value="insertar">Añadir Producto</button>
+            <button class="button" type="button" onclick="location.href='index.html'">Inicio</button>
+        </form>
         <script type="text/javascript">
             alertify.set('notifier','position', 'bottom-center');
             ${msg}
