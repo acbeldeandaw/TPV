@@ -117,8 +117,9 @@ public class Controlador extends HttpServlet {
             rd.forward(request, response);
             
         } else {
-            RequestDispatcher rd = request.getRequestDispatcher("index.html");
-            rd.forward(request, response);
+            response.sendRedirect("index.html");
+//            RequestDispatcher rd = request.getRequestDispatcher("index.html");
+//            rd.forward(request, response);
         }
         
     }
