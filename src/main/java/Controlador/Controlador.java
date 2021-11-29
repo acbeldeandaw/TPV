@@ -39,6 +39,7 @@ public class Controlador extends HttpServlet {
     protected void service(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
+        response.setCharacterEncoding("UTF-8");
         String action = (request.getParameter("action") != null) ? request.getParameter("action") : "" ;
         
         if (action.compareToIgnoreCase("mostrar") == 0) {
