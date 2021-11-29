@@ -8,6 +8,7 @@ package Controlador;
 import Modelo.Crud;
 import Modelo.Productos;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -22,7 +23,9 @@ import javax.servlet.http.HttpServletResponse;
  */
 @WebServlet(name = "Controlador", urlPatterns = {"/Controlador"})
 public class Controlador extends HttpServlet {
-
+    
+    final int NUM_LINEAS_PAGINA = 5;
+    
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -39,8 +42,25 @@ public class Controlador extends HttpServlet {
         String action = (request.getParameter("action") != null) ? request.getParameter("action") : "" ;
         
         if (action.compareToIgnoreCase("mostrar") == 0) {
+            int pag = 1;
+            int offset = 0;
+            ArrayList paginas = new ArrayList();
             List<Productos> listaProductos = Crud.getProductos();
+            
+            if (request.getParameter("pag") != null) {
+                pag = Integer.parseInt(request.getParameter("pag"));
+                offset = (pag - 1) * NUM_LINEAS_PAGINA;
+            }
+            int num_pag = (int) Math.ceil(listaProductos.size() / (double) NUM_LINEAS_PAGINA);
+            listaProductos = Crud.getProductosPaginado(NUM_LINEAS_PAGINA, offset);
+            for (int i = 1; i <= num_pag; i++) {
+                paginas.add(i);
+            }
+            
             request.setAttribute("lista", listaProductos);
+            request.setAttribute("pag", pag);
+            request.setAttribute("num_pag", num_pag);
+            request.setAttribute("paginas", paginas);
             RequestDispatcher rd = request.getRequestDispatcher("mostrar.jsp");
             rd.forward(request, response);
             

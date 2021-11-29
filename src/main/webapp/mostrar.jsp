@@ -53,6 +53,33 @@
                 background-color: purple;
                 color: white;
             }
+            .paginas {
+                display: flex;
+                width: 50%;
+                flex-wrap: wrap;
+                justify-content: space-around;
+                margin: auto;
+                text-align: center;
+            }
+            .pag {
+                border: 0;
+                background: none;
+                color: blue;
+                font-size: 15px;
+            }
+            .pag:hover {
+                cursor: pointer;
+                color: orange;
+            }
+            .active {
+                color: black;
+                background-color: transparent;
+                border: transparent;
+                margin: 0;
+                padding: 0;
+                text-align: center;
+                font-size: 15px;
+            }
         </style>
     </head>
     <body>
@@ -71,12 +98,12 @@
                 </tr>
             </thead>
             <tbody class="">
-                <c:forEach var="p" items="${lista}">
+                <c:forEach var="prod" items="${lista}">
                     <tr>
-                        <td>${p.nombre}</td>
-                        <td>${p.precio} €</td>
+                        <td>${prod.nombre}</td>
+                        <td>${prod.precio} €</td>
                         <form action="Controlador" method="POST">
-                            <input type="hidden" name="id" value="${p.id}"> 
+                            <input type="hidden" name="id" value="${prod.id}"> 
                             <td><button class="fake-a" type="submit" name="action" onclick="return confirm('¿De verdad quiere eliminar el producto?')" value="borrar">Borrar</button></td>
                             <td><button class="fake-a" type="submit" name="action" value="actualizar">Actualizar</button></td>
                         </form>
@@ -84,6 +111,39 @@
                 </c:forEach>
             </tbody>
         </table>
+        <div class="paginas">
+            <form action="Controlador" method="POST">
+                <input type="hidden" name="pag" value="1">
+                <button class="pag" type="submit" name="action" value="mostrar"><<</button>
+            </form>
+            <c:if test="${pag > 1}">  
+                  <form action="Controlador" method="POST">
+                    <input type="hidden" name="pag" value="${pag-1}">
+                    <button class="pag" type="submit" name="action" value="mostrar"><</button>
+                </form>
+            </c:if> 
+            <c:forEach var="p" items="${paginas}">
+                <form action="Controlador" method="POST">
+                    <input type="hidden" name="pag" value="${p}">
+                    <c:if test="${pag == p}">  
+                        <a class="active">${p}</a>
+                    </c:if> 
+                    <c:if test="${pag != p}">  
+                        <button class="pag" type="submit" name="action" value="mostrar">${p}</button>
+                    </c:if> 
+                </form>
+            </c:forEach>
+            <c:if test="${pag < num_pag}">  
+                  <form action="Controlador" method="POST">
+                    <input type="hidden" name="pag" value="${pag+1}">
+                    <button class="pag" type="submit" name="action" value="mostrar">></button>
+                </form>
+            </c:if> 
+            <form action="Controlador" method="POST">
+                <input type="hidden" name="pag" value="${num_pag}">
+                <button class="pag" type="submit" name="action" value="mostrar">>></button>
+            </form>
+        </div>
         <script type="text/javascript">
             alertify.set('notifier','position', 'bottom-center');
             ${msg}

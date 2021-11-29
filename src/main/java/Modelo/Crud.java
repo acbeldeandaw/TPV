@@ -22,6 +22,18 @@ public class Crud {
         return productosBD;        
     }
     
+    public static List<Productos> getProductosPaginado(int lineas_pagina, int offset) {
+        EntityManagerFactory factory = Persistence.createEntityManagerFactory("my_persistence_unit");
+        EntityManager manager = factory.createEntityManager();
+        String sql = "SELECT * FROM productos";
+        Query q = manager.createNativeQuery(sql,Productos.class); //método para consultas en SQL
+        q.setMaxResults(lineas_pagina);
+        q.setFirstResult(offset);
+        List<Productos> productosBD =  q.getResultList();
+        
+        return productosBD;        
+    }
+    
     public static Productos getProducto(int id) {
         EntityManagerFactory factory = Persistence.createEntityManagerFactory("my_persistence_unit");
         EntityManager manager = factory.createEntityManager();
